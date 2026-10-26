@@ -114,11 +114,37 @@ test.describe("make appoinment test", () => {
 
     console.log(`>> List of Options: ${listOfOptions}`);
 
-    //radio button check, check box selection
-    await page.getByRole("radio", { name: "Medicaid" }).check();
+    /**
+     * ELEMENT: Checkbox/Radio button
+     *
+     * @actions
+     * 1. Assert the default option - to be checked/unchecked
+     * 2. Check/uncheck
+     *
+     * @notes
+     * - Radio button - Allows to select only one option
+     * - Checkbox - Allows for multi-entry
+     */
+
+    // Checkbox
     await page
       .getByRole("checkbox", { name: "Apply for hospital readmission" })
       .check();
+
+    //or
+    // await page
+    //   .getByRole("checkbox", { name: "Apply for hospital readmission" })
+    //   .click();
+
+    //radio button 
+    // Assert the default option – to be checked/unchecked
+    await expect(page.getByText("Medicare")).toBeChecked();
+
+    await page.getByText("Medicaid").check();
+    await expect(page.getByText("Medicare")).not.toBeChecked();
+    //or
+    //await page.getByRole("radio", { name: "Medicaid" }).click();
+
     await page.getByRole("textbox", { name: "Visit Date (Required)" }).click();
     // await page
     //   .getByRole("textbox", { name: "Visit Date (Required)" })

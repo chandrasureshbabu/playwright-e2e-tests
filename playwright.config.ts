@@ -1,8 +1,8 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
-declare const process: {
-  env: Record<string, string | undefined>;
-};
+// declare const process: {
+//   env: Record<string, string | undefined>;
+// };
 
 /**
  * Read environment variables from file.
@@ -16,7 +16,22 @@ declare const process: {
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests',
+  // 🔹 Global test timeout
+  // Maximum time a single test is allowed to run.
+  // Default is 30s. If exceeded, the test fails.
+  //timeout:3000,
+
+
+   globalTimeout:40000,
+
+  // expect:{
+  // 🔹 Expect timeout
+    // Maximum time Playwright waits for assertions like toHaveText, toBeVisible, etc.
+    // Default is 5s. Increase if your UI updates slowly.
+  //   timeout:5000
+  // },
+
+  testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -26,33 +41,42 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: "on-first-retry",
     //ignoreHTTPSErrors: true,
-     navigationTimeout: 30_000,
+
+    // 🔹 Action timeout
+    // Maximum time Playwright waits for each action (click, fill, hover, etc.)
+    // Default is no limit (inherits from test timeout).
+    //actionTimeout:3000,
+
+    // 🔹 Navigation timeout
+    // Maximum time Playwright waits for navigation (page.goto, page.waitForURL).
+    // Default is 30s.
+    //navigationTimeout: 30_000,
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
 
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
     },
 
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
     },
 
     /* Test against mobile viewports. */
