@@ -70,15 +70,10 @@ test.describe("form layout page", () => {
 
     console.log(`Expected Date: ${expectedDate}`);
 
-  
-    
-
     await page
       .locator(".day-cell:not(.bounding-month)")
       .getByText(expected_DateDay, { exact: true })
       .click();
-
-    
 
     await expect(datefield).toHaveValue(expectedDate);
   });

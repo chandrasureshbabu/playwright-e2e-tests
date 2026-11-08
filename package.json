@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "demo": "npx playwright test tests/demo/demoTest.spec.ts --headed"
+    "demo": "npx playwright test tests/demo/demoTest.spec.ts --headed",
+    "demo:trace": "npx playwright test tests/demo/PomExp1.spec.ts --trace on",
+    "debug:cli": "npx playwright test tests/demo/PomExp1.spec.ts --debug",
+    "debug:UI": "npx playwright test tests/demo/PomExp1.spec.ts --ui --headed"
+    
+  
   },
   "keywords": [],
   "author": "",
